@@ -1,791 +1,312 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="대한불교불국사. 불교 상담, 사주·명리 상담, 기도와 법회 안내.">
   <title>대한불교불국사 | 마음이 쉬어가는 도량</title>
   <style>
-    :root {
-      color-scheme: light;
-      --bg: #1c1206;
-      --surface: #2e1f11;
-      --panel: #3c2c18;
-      --text: #f1e3c3;
-      --muted: #cbb590;
-      --accent: #d4ab4d;
-      --accent-dark: #a6792f;
-      --border: rgba(212, 171, 77, 0.25);
-      --shadow: 0 24px 64px rgba(0, 0, 0, 0.35);
-      --radius: 28px;
-      --radius-sm: 18px;
-      --max-width: 1180px;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: "Noto Sans KR", sans-serif;
-      background: radial-gradient(circle at top left, rgba(212, 171, 77, 0.12), transparent 25%),
-        linear-gradient(180deg, #241810 0%, #0f0904 100%);
-      color: var(--text);
-      line-height: 1.7;
-    }
-
-    img {
-      max-width: 100%;
-      display: block;
-    }
-
-    a,
-    button {
-      font: inherit;
-    }
-
-    .page {
-      width: min(100%, var(--max-width));
-      margin: 0 auto;
-      padding: 0 24px 64px;
-    }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 30;
-      background: rgba(19, 11, 5, 0.94);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(212, 171, 77, 0.12);
-    }
-
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-      padding: 18px 0;
-    }
-
-    .brand {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      color: var(--text);
-    }
-
-    .brand strong {
-      font-size: 1.45rem;
-      letter-spacing: -0.04em;
-    }
-
-    .brand span {
-      font-size: 0.95rem;
-      color: var(--muted);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 22px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .nav-links a {
-      color: var(--text);
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.2s ease;
-    }
-
-    .nav-links a:hover,
-    .nav-links a:focus-visible {
-      color: var(--accent);
-    }
-
-    .header-actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .header-actions a {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      border-radius: 999px;
-      padding: 12px 18px;
-      text-decoration: none;
-      font-weight: 700;
-      border: 1px solid rgba(212, 171, 77, 0.16);
-      transition: transform 0.2s ease, background-color 0.2s ease;
-    }
-
-    .header-actions a.primary {
-      background: linear-gradient(135deg, #b8872c 0%, #e5c37c 100%);
-      color: #221806;
-    }
-
-    .header-actions a.secondary {
-      background: rgba(255, 255, 255, 0.08);
-      color: var(--text);
-    }
-
-    .header-actions a:hover {
-      transform: translateY(-1px);
-    }
-
-    .menu-toggle {
-      display: none;
-      width: 46px;
-      height: 46px;
-      border: 1px solid rgba(212, 171, 77, 0.16);
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.08);
-      color: var(--text);
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-    }
-
-    .hero {
-      margin-top: 24px;
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 34px;
-      align-items: center;
-      min-height: 84vh;
-    }
-
-    .hero-text-area {
-      display: grid;
-      gap: 24px;
-    }
-
-    .eyebrow {
-      display: inline-block;
-      padding: 10px 18px;
-      border-radius: 999px;
-      background: rgba(212, 171, 77, 0.14);
-      color: var(--accent);
-      font-size: 0.95rem;
-      letter-spacing: 0.05em;
-    }
-
-    .hero-title {
-      margin: 0;
-      font-size: clamp(3rem, 5vw, 4.8rem);
-      line-height: 0.95;
-      letter-spacing: -0.06em;
-    }
-
-    .hero-title strong {
-      display: block;
-      color: var(--accent);
-    }
-
-    .hero-description {
-      margin: 0;
-      color: var(--muted);
-      font-size: 1.05rem;
-      max-width: 760px;
-    }
-
-    .hero-actions {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, max-content));
-      gap: 14px;
-    }
-
-    .hero-banner {
-      position: relative;
-      min-height: 560px;
-      border-radius: 34px;
-      overflow: hidden;
-      background-color: #1a1107;
-      box-shadow: var(--shadow);
-      border: 1px solid rgba(212, 171, 77, 0.16);
-      background-image: linear-gradient(180deg, rgba(22, 14, 7, 0.25), rgba(22, 14, 7, 0.65)),
-        url('images/temple-front.jpg');
-      background-size: cover;
-      background-position: center;
-      display: grid;
-      align-items: flex-end;
-      justify-items: start;
-    }
-
-    .hero-banner::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(18, 10, 4, 0.15), rgba(18, 10, 4, 0.7));
-    }
-
-    .hero-banner-content {
-      position: relative;
-      z-index: 1;
-      padding: 36px;
-      max-width: 640px;
-    }
-
-    .hero-banner-title {
-      margin: 0 0 12px;
-      font-size: clamp(2.8rem, 5vw, 4.2rem);
-      line-height: 0.95;
-      letter-spacing: -0.06em;
-      color: #fff;
-      text-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
-    }
-
-    .hero-banner-subtitle {
-      margin: 0;
-      color: #ffebc7;
-      font-size: 1.2rem;
-      letter-spacing: 0.02em;
-      text-shadow: 0 14px 30px rgba(0, 0, 0, 0.28);
-    }
-
-    main {
-      margin-top: 48px;
-      display: grid;
-      gap: 46px;
-    }
-
-    .section-intro {
-      display: grid;
-      gap: 16px;
-    }
-
-    .section-intro h2 {
-      margin: 0;
-      font-size: clamp(2rem, 3vw, 3rem);
-      letter-spacing: -0.04em;
-    }
-
-    .section-intro p {
-      margin: 0;
-      color: var(--muted);
-      max-width: 740px;
-    }
-
-    .grid-2 {
-      display: grid;
-      gap: 30px;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .panel,
-    .highlight-card,
-    .contact-card,
-    .service-card {
-      background: rgba(255, 250, 240, 0.06);
-      border: 1px solid rgba(212, 171, 77, 0.14);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 34px;
-      backdrop-filter: blur(12px);
-    }
-
-    .panel h3,
-    .highlight-card h3,
-    .contact-card h3,
-    .service-card h3 {
-      margin-top: 0;
-      color: var(--accent);
-    }
-
-    .panel p,
-    .highlight-card p,
-    .service-card p,
-    .contact-card p {
-      margin: 0;
-      color: var(--muted);
-    }
-
-    .highlight-list {
-      display: grid;
-      gap: 16px;
-      margin-top: 22px;
-    }
-
-    .highlight-item {
-      display: flex;
-      gap: 14px;
-      align-items: flex-start;
-      color: var(--text);
-    }
-
-    .highlight-item strong {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 34px;
-      height: 34px;
-      min-width: 34px;
-      border-radius: 50%;
-      background: rgba(212, 171, 77, 0.13);
-      color: var(--accent);
-      font-size: 0.95rem;
-      margin-top: 4px;
-    }
-
-    .highlight-item span {
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    .service-list {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 22px;
-    }
-
-    .service-card {
-      display: grid;
-      gap: 18px;
-      padding: 30px;
-      min-height: 240px;
-    }
-
-    .service-card h4 {
-      margin: 0;
-      font-size: 1.1rem;
-    }
-
-    .service-card p {
-      margin: 0;
-    }
-
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .gallery-item {
-      position: relative;
-      border-radius: 28px;
-      overflow: hidden;
-      min-height: 240px;
-      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.22);
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(212, 171, 77, 0.14);
-    }
-
-    .gallery-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .gallery-item::after {
-      content: attr(data-label);
-      position: absolute;
-      bottom: 16px;
-      left: 16px;
-      right: 16px;
-      padding: 14px 16px;
-      border-radius: 20px;
-      background: rgba(18, 11, 6, 0.68);
-      color: #f7e8c6;
-      font-weight: 700;
-      backdrop-filter: blur(6px);
-    }
-
-    .map-section {
-      display: grid;
-      gap: 24px;
-    }
-
-    .map-frame,
-    .map-placeholder {
-      width: 100%;
-      min-height: 340px;
-      border-radius: 32px;
-      overflow: hidden;
-      border: 1px solid rgba(212, 171, 77, 0.14);
-      background: rgba(255, 255, 255, 0.05);
-      box-shadow: var(--shadow);
-    }
-
-    .map-placeholder {
-      display: grid;
-      place-items: center;
-      padding: 24px;
-      color: var(--muted);
-      text-align: center;
-      font-size: 1rem;
-    }
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 24px;
-    }
-
-    .contact-card {
-      display: grid;
-      gap: 18px;
-    }
-
-    .contact-card ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: grid;
-      gap: 14px;
-    }
-
-    .contact-card li {
-      display: grid;
-      grid-template-columns: 130px 1fr;
-      gap: 12px;
-      color: var(--muted);
-    }
-
-    .contact-card strong {
-      color: var(--text);
-      font-weight: 700;
-    }
-
-    .action-buttons {
-      display: grid;
-      gap: 14px;
-    }
-
-    .footer {
-      text-align: center;
-      padding: 28px 0 12px;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .section-divider {
-      width: 84px;
-      height: 4px;
-      border-radius: 999px;
-      background: linear-gradient(90deg, rgba(212, 171, 77, 0.95), rgba(181, 132, 58, 0.92));
-      margin-top: 10px;
-    }
-
-    @media (max-width: 940px) {
-      .hero {
-        grid-template-columns: 1fr;
-      }
-
-      .grid-2,
-      .service-list,
-      .gallery,
-      .contact-grid,
-      .map-section {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 760px) {
-      .page {
-        padding: 0 18px 48px;
-      }
-
-      .topbar {
-        flex-wrap: wrap;
-        align-items: flex-start;
-      }
-
-      .nav-links {
-        display: none;
-      }
-
-      .menu-toggle {
-        display: inline-flex;
-      }
-
-      .header-actions {
-        width: 100%;
-        justify-content: flex-start;
-      }
-
-      .hero-actions {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-banner {
-        min-height: 440px;
-      }
-
-      .gallery-item {
-        min-height: 220px;
-      }
-    }
-
-    .mobile-nav {
-      display: none;
-      flex-direction: column;
-      gap: 16px;
-      padding: 18px 0 12px;
-      border-top: 1px solid rgba(212, 171, 77, 0.16);
-    }
-
-    .mobile-nav.open {
-      display: flex;
-    }
-
-    .mobile-nav a {
-      color: var(--text);
-      text-decoration: none;
-      font-weight: 700;
-      padding: 12px 0;
-      border-bottom: 1px solid rgba(212, 171, 77, 0.08);
+    :root{
+      --bg:#120d0b; --panel:#201611; --panel2:#2a1b13;
+      --gold:#e9a53a; --gold2:#ffd488; --text:#fff7ec;
+      --muted:#d1c2b4; --line:rgba(255,255,255,.13);
+      --max:1120px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--text);
+      font-family:"Pretendard","Noto Sans KR",Arial,sans-serif;line-height:1.72}
+    a{color:inherit;text-decoration:none}
+    img{display:block;max-width:100%}
+    .container{width:min(var(--max),calc(100% - 34px));margin:auto}
+    header{position:sticky;top:0;z-index:50;background:rgba(18,13,11,.88);
+      backdrop-filter:blur(13px);border-bottom:1px solid var(--line)}
+    .nav{min-height:74px;display:flex;align-items:center;gap:22px}
+    .brand{margin-right:auto;display:flex;flex-direction:column;line-height:1.2}
+    .brand b{font-size:20px;color:var(--gold2)}
+    .brand small{margin-top:6px;color:var(--muted);font-size:12px}
+    nav{display:flex;align-items:center;gap:22px;font-size:14px;font-weight:700}
+    nav a:hover{color:var(--gold2)}
+    .nav-actions{display:flex;gap:9px}
+    .pill,.btn{border-radius:999px;padding:11px 17px;font-weight:800;border:1px solid var(--line)}
+    .primary{background:linear-gradient(135deg,var(--gold),#f8c266);color:#26160a;border:0}
+    .secondary{background:rgba(255,255,255,.07)}
+    .hero{position:relative;min-height:650px;display:flex;align-items:center;overflow:hidden}
+    .hero:before{content:"";position:absolute;inset:0;background:
+      linear-gradient(90deg,rgba(14,9,7,.97) 0%,rgba(14,9,7,.80) 46%,rgba(14,9,7,.20) 100%),
+      url("images/temple-front.jpg") center/cover no-repeat}
+    .hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+    .eyebrow{display:inline-block;color:var(--gold2);font-weight:900;
+      background:rgba(233,165,58,.15);border:1px solid rgba(233,165,58,.25);
+      border-radius:999px;padding:8px 13px;margin-bottom:17px}
+    h1{font-size:clamp(42px,6vw,74px);line-height:1.08;margin:0 0 18px}
+    .hero p{font-size:18px;color:#efe2d3;max-width:620px}
+    .hero-buttons{display:flex;flex-wrap:wrap;gap:12px;margin-top:27px}
+    .hero-card{border:1px solid rgba(255,255,255,.23);border-radius:28px;overflow:hidden;
+      box-shadow:0 30px 80px rgba(0,0,0,.45);background:rgba(20,13,10,.45)}
+    .hero-card img{width:100%;height:455px;object-fit:cover}
+    .hero-card figcaption{padding:21px 23px;font-weight:900;font-size:22px}
+    section{padding:94px 0}
+    .section-head{margin-bottom:35px}
+    .section-head span{color:var(--gold);font-weight:900}
+    .section-head h2{font-size:clamp(31px,4vw,48px);line-height:1.22;margin:10px 0 0}
+    .intro-grid,.abbot-grid,.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:46px;align-items:center}
+    .photo{border-radius:25px;overflow:hidden;border:1px solid var(--line);box-shadow:0 24px 60px rgba(0,0,0,.35)}
+    .photo img{width:100%;height:470px;object-fit:cover}
+    .copy{font-size:17px;color:var(--muted)}
+    .quote{font-family:serif;font-size:28px;line-height:1.55;color:#ffe4b2;border-left:4px solid var(--gold);padding-left:22px}
+    .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+    .card{background:linear-gradient(160deg,var(--panel),var(--panel2));border:1px solid var(--line);
+      border-radius:22px;padding:27px;min-height:235px}
+    .card strong{display:block;color:var(--gold2);font-size:20px;margin:12px 0}
+    .card .icon{font-size:30px}
+    .card p{color:var(--muted);margin:0}
+    .soft{background:#18100d;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+    .gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+    .gallery figure{position:relative;margin:0;border-radius:24px;overflow:hidden;border:1px solid var(--line)}
+    .gallery img{width:100%;height:360px;object-fit:cover;transition:.35s}
+    .gallery figure:hover img{transform:scale(1.035)}
+    .gallery figcaption{position:absolute;left:0;right:0;bottom:0;padding:30px 22px 18px;
+      background:linear-gradient(transparent,rgba(0,0,0,.86));font-size:20px;font-weight:900}
+    .profile-list{padding:0;list-style:none}
+    .profile-list li{padding:11px 0;border-bottom:1px solid var(--line);color:#eadfd3}
+    .contact-box{background:linear-gradient(145deg,#2b1b12,#17100d);border:1px solid var(--line);
+      border-radius:26px;padding:34px}
+    .reservation-wrap{display:grid;grid-template-columns:.85fr 1.15fr;gap:36px;align-items:start}
+    .reservation-form{background:linear-gradient(145deg,#2b1b12,#17100d);border:1px solid var(--line);border-radius:26px;padding:30px}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .field{display:flex;flex-direction:column;gap:7px}
+    .field.full{grid-column:1/-1}
+    .field label{font-weight:800;color:#f8e9d7}
+    .field input,.field select,.field textarea{width:100%;border:1px solid rgba(255,255,255,.18);background:#130d0a;color:#fff7ec;border-radius:12px;padding:13px 14px;font:inherit}
+    .field textarea{min-height:105px;resize:vertical}
+    .field input:focus,.field select:focus,.field textarea:focus{outline:2px solid rgba(233,165,58,.55);border-color:var(--gold)}
+    .check{display:flex;gap:10px;align-items:flex-start;margin:18px 0;color:var(--muted);font-size:14px}
+    .check input{margin-top:5px;transform:scale(1.2)}
+    .form-actions{display:flex;flex-wrap:wrap;gap:10px}
+    button.btn{cursor:pointer;font:inherit}
+    .notice{margin-top:15px;color:var(--gold2);font-weight:700;min-height:24px}
+    .contact-row{display:flex;justify-content:space-between;gap:20px;padding:14px 0;border-bottom:1px solid var(--line)}
+    .contact-row span{color:var(--muted)}
+    footer{padding:35px 0 100px;color:#a99c91;border-top:1px solid var(--line)}
+    .mobile-bar{display:none}
+    @media(max-width:900px){
+      nav{display:none}.nav-actions .secondary{display:none}
+      .hero{min-height:auto;padding:85px 0}
+      .hero-inner,.intro-grid,.abbot-grid,.contact-grid,.reservation-wrap{grid-template-columns:1fr}
+      .hero-card{display:none}.cards{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:620px){
+      .container{width:min(100% - 24px,var(--max))}
+      header .nav{min-height:62px}.brand b{font-size:17px}
+      .nav-actions{display:none}h1{font-size:42px}
+      section{padding:68px 0}.cards,.gallery,.form-grid{grid-template-columns:1fr}
+      .field.full{grid-column:auto}.reservation-form{padding:22px}
+      .gallery img,.photo img{height:310px}
+      .mobile-bar{display:grid;grid-template-columns:1fr 1fr;position:fixed;z-index:80;
+        left:0;right:0;bottom:0;background:#100b09;border-top:1px solid var(--line)}
+      .mobile-bar a{text-align:center;padding:15px;font-weight:900}
+      .mobile-bar a:first-child{background:var(--gold);color:#211208}
     }
   </style>
 </head>
 <body>
-  <div class="page">
-    <header>
-      <div class="topbar">
-        <a href="#hero" class="brand">
-          <strong>대한불교불국사</strong>
-          <span>마음이 쉬어가는 도량</span>
-        </a>
-
-        <nav class="nav-links" aria-label="주요 이동">
-          <a href="#about">사찰소개</a>
-          <a href="#master">주지스님</a>
-          <a href="#ceremony">법회안내</a>
-          <a href="#services">사주상담</a>
-          <a href="#gallery">갤러리</a>
-          <a href="#directions">오시는 길</a>
-          <a href="#contact">문의하기</a>
-        </nav>
-
-        <div class="header-actions">
-          <a class="primary" href="#contact">예약하기</a>
-          <a class="secondary" href="tel:01056691414">전화걸기</a>
-          <a class="secondary" href="https://pf.kakao.com" target="_blank" rel="noopener noreferrer">카카오톡 상담</a>
-        </div>
-
-        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">
-          ☰
-        </button>
-      </div>
-      <nav id="mobile-nav" class="mobile-nav" aria-label="모바일 메뉴"></nav>
-    </header>
-
-    <section id="hero" class="hero">
-      <div class="hero-text-area">
-        <span class="eyebrow">전통 사찰의 품격, 현대 상담의 편안함</span>
-        <h1 class="hero-title">대한불교불국사</h1>
-        <p class="hero-description">
-          마음이 쉬어가는 도량에서 불교의 지혜와 사주 상담이 만나 삶의 길을 함께 찾습니다. 고요한 사찰 분위기 속에서
-          진솔한 상담을 경험하세요.
-        </p>
-        <div class="hero-actions">
-          <a class="btn-primary" href="#contact">예약하기</a>
-          <a class="btn-secondary" href="tel:01056691414">전화걸기</a>
-          <a class="btn-secondary" href="https://pf.kakao.com" target="_blank" rel="noopener noreferrer">카카오톡 상담</a>
-        </div>
-      </div>
-
-      <div class="hero-banner">
-        <div class="hero-banner-content">
-          <h2 class="hero-banner-title">대한불교불국사</h2>
-          <p class="hero-banner-subtitle">마음이 쉬어가는 도량</p>
-        </div>
-      </div>
-    </section>
-
-    <main>
-      <section id="about" class="section-intro">
-        <div class="section-divider"></div>
-        <h2>사찰소개</h2>
-        <p>
-          대한불교불국사는 깊은 불심과 고요한 공간으로 방문객을 맞이합니다. 전통 사찰의 품격을 유지하며 상담과 수행이
-          조화를 이루는 도량입니다.
-        </p>
-      </section>
-
-      <section class="grid-2">
-        <div class="panel">
-          <h3>사찰의 의미</h3>
-          <p>
-            김해시 분성로에 위치한 대한불교불국사는 불교의 가르침을 기반으로 하는 상담과 치유의 공간입니다. 고요한 법당과
-            편안한 상담실에서 마음의 안정을 찾을 수 있습니다.
-          </p>
-        </div>
-        <div class="panel">
-          <h3>전통과 현대의 연결</h3>
-          <p>
-            전통 불교 사찰의 고요함을 유지하면서도 사주 상담, 명리학, 궁합, 개명 상담을 통해 현대인의 삶에 필요한 방향을
-            함께 찾아드립니다.
-          </p>
-        </div>
-      </section>
-
-      <section id="master" class="section-intro">
-        <div class="section-divider"></div>
-        <h2>주지스님</h2>
-        <p>대한불교불국사의 주지스님은 깊은 불심과 전문 상담 지식으로 신도와 상담자 모두에게 든든한 길잡이가 됩니다.</p>
-      </section>
-
-      <section class="grid-2">
-        <div class="panel">
-          <h3>소개</h3>
-          <p>
-            주지스님은 동국대학교 박사과정 수료 후 대한불교불국사의 주지로 섬기고 있으며, 명리학과 사주 상담을 통해 많은
-            분들의 삶을 도와왔습니다.
-          </p>
-        </div>
-        <div class="panel">
-          <h3>전문 상담</h3>
-          <div class="highlight-list">
-            <div class="highlight-item"><strong>1</strong><span>동국대학교 박사과정 수료</span></div>
-            <div class="highlight-item"><strong>2</strong><span>대한불교불국사 주지</span></div>
-            <div class="highlight-item"><strong>3</strong><span>명리학·사주·궁합·개명 상담</span></div>
-          </div>
-        </div>
-      </section>
-
-      <section id="ceremony" class="section-intro">
-        <div class="section-divider"></div>
-        <h2>법회안내</h2>
-        <p>전통 법회와 예불 안내를 통해 마음의 평안을 찾을 수 있는 일정과 장소를 안내합니다.</p>
-      </section>
-
-      <section class="panel">
-        <h3>법회 일정</h3>
-        <p>
-          매일 오전 10시부터 11시까지 예불이 진행되며, 일요일과 중요한 법절에는 특별 법회가 마련됩니다. 법회 참석은
-          누구나 환영하며, 사찰의 분위기를 온전히 느낄 수 있습니다.
-        </p>
-      </section>
-
-      <section id="services" class="section-intro">
-        <div class="section-divider"></div>
-        <h2>사주상담</h2>
-        <p>운명을 단정하지 않고 삶의 방향을 함께 찾아드립니다. 사주 상담은 현재와 미래 모두를 넓게 바라보는 과정입니다.</p>
-      </section>
-
-      <div class="service-list">
-        <article class="service-card">
-          <h3>사주 상담</h3>
-          <p>출생 정보를 바탕으로 성격, 운세, 일, 관계의 흐름을 세심하게 살핍니다.</p>
-        </article>
-        <article class="service-card">
-          <h3>명리학</h3>
-          <p>사주의 오행을 분석하여 균형과 조화를 이루는 방향을 제시합니다.</p>
-        </article>
-        <article class="service-card">
-          <h3>궁합 상담</h3>
-          <p>가족, 연인, 부부의 관계를 깊게 분석하여 조화로운 인연을 돕습니다.</p>
-        </article>
-        <article class="service-card">
-          <h3>개명 상담</h3>
-          <p>이름의 기운을 살펴 새 이름이 가져올 길과 변화를 함께 고민합니다.</p>
-        </article>
-      </div>
-
-      <section id="gallery" class="section-intro">
-        <div class="section-divider"></div>
-        <h2>갤러리</h2>
-        <p>사찰의 고요한 공간, 법당, 상담실, 교육실, 주지스님 사진을 담은 갤러리입니다.</p>
-      </section>
-
-      <div class="gallery">
-        <div class="gallery-item" data-label="사찰 전경"><img src="images/temple-front.jpg" alt="사찰 전경" /></div>
-        <div class="gallery-item" data-label="법당 내부"><img src="images/hall.jpg" alt="법당 내부" /></div>
-        <div class="gallery-item" data-label="상담실"><img src="images/counsel-room.jpg" alt="상담실" /></div>
-        <div class="gallery-item" data-label="교육실"><img src="images/classroom.jpg" alt="교육실" /></div>
-        <div class="gallery-item" data-label="주지스님"><img src="images/abbot.jpg" alt="주지스님" /></div>
-      </div>
-
-      <section id="directions" class="section-intro">
-        <div class="section-divider"></div>
-        <h2>오시는 길</h2>
-        <p>대한불교불국사의 위치와 접근 방법을 안내합니다. 방문 전에 전화로 예약하시면 더욱 편리합니다.</p>
-      </section>
-
-      <div class="map-section">
-        <div class="map-placeholder">
-          위치: 경남 김해시 분성로376번길 16-1<br />
-          도착 길 안내는 Google Maps 또는 카카오맵 URL을 추가하시면 더욱 정확하게 안내됩니다.
-        </div>
-      </div>
-
-      <section id="contact" class="section-intro">
-        <div class="section-divider"></div>
-        <h2>문의하기</h2>
-        <p>전화와 카카오톡으로 편하게 상담 예약과 문의를 남겨주세요.</p>
-      </section>
-
-      <div class="contact-grid">
-        <div class="contact-card">
-          <h3>대한불교불국사</h3>
-          <p>경남 김해시 분성로376번길 16-1</p>
-          <ul>
-            <li><strong>상담예약(총무):</strong> 010-5669-9400</li>
-            <li><strong>상담전화:</strong> 010-5669-1414</li>
-            <li><strong>상담시간:</strong> 오전 11시~오후 5시</li>
-            <li><strong>예불시간:</strong> 오전 10시~11시</li>
-          </ul>
-          <div class="action-buttons">
-            <a class="btn-primary" href="#contact">예약하기</a>
-            <a class="btn-secondary" href="tel:01056691414">전화걸기</a>
-            <a class="btn-secondary" href="https://pf.kakao.com" target="_blank" rel="noopener noreferrer">카카오톡 상담</a>
-          </div>
-        </div>
-        <div class="contact-card">
-          <h3>상담 안내</h3>
-          <p>사찰의 고요함 속에서 전문적인 사주 상담을 진행합니다. 방문 전 예약하시면 안정된 상담 시간을 보장합니다.</p>
-        </div>
-      </div>
-    </main>
-
-    <footer class="footer">
-      © 2026 대한불교불국사. 마음이 쉬어가는 도량으로 초대합니다.
-    </footer>
+<header>
+  <div class="container nav">
+    <a class="brand" href="#home"><b>대한불교불국사</b><small>마음이 쉬어가는 도량</small></a>
+    <nav>
+      <a href="#about">사찰소개</a><a href="#abbot">주지스님</a>
+      <a href="#prayer">법회안내</a><a href="#consult">사주상담</a>
+      <a href="#gallery">갤러리</a><a href="#contact">문의하기</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="pill primary" href="#reservation">예약하기</a>
+      <a class="pill secondary" href="tel:0553336544">전화하기</a>
+    </div>
   </div>
+</header>
 
-  <script>
-    const menuToggle = document.querySelector('.menu-toggle');
-    const mobileNav = document.getElementById('mobile-nav');
-    const navLinks = document.querySelectorAll('header .nav-links a');
+<main id="home">
+  <section class="hero">
+    <div class="container hero-inner">
+      <div>
+        <div class="eyebrow">전통 사찰의 품격, 현대 상담의 편안함</div>
+        <h1>대한불교<br>불국사</h1>
+        <p>부처님의 자비와 지혜를 바탕으로, 기도와 수행 그리고 삶의 상담을 통해 마음의 평안과 새로운 방향을 함께 찾습니다.</p>
+        <div class="hero-buttons">
+          <a class="btn primary" href="#reservation">상담 예약</a>
+          <a class="btn secondary" href="#gallery">사찰 둘러보기</a>
+        </div>
+      </div>
+      <figure class="hero-card">
+        <img src="images/temple-front.jpg" alt="대한불교불국사 전경">
+        <figcaption>대한불교불국사<br><small>마음이 쉬어가는 도량</small></figcaption>
+      </figure>
+    </div>
+  </section>
 
-    const mobileMenuItems = Array.from(navLinks).map(link => `<a href="${link.getAttribute('href')}">${link.textContent}</a>`);
-    mobileNav.innerHTML = mobileMenuItems.join('');
+  <section id="about">
+    <div class="container intro-grid">
+      <div class="photo"><img src="images/main-hall.jpg" alt="불국사 법당 내부"></div>
+      <div>
+        <div class="section-head"><span>사찰 소개</span><h2>기도와 수행, 상담이 함께하는 도량</h2></div>
+        <div class="copy">
+          <p>대한불교불국사는 부처님의 가르침을 생활 속에서 실천하며, 누구나 편안히 찾아와 마음을 내려놓을 수 있는 도량입니다.</p>
+          <p>정기 법회와 기도, 불교 공부, 사주·명리 상담을 통해 삶의 어려움을 지혜롭게 바라보고 더 나은 길을 찾도록 정성을 다해 돕고 있습니다.</p>
+          <p class="quote">“마음이 고요하면 길이 보이고,<br>마음이 밝아지면 삶이 달라집니다.”</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    menuToggle.addEventListener('click', () => {
-      const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
-      menuToggle.setAttribute('aria-expanded', String(!expanded));
-      mobileNav.classList.toggle('open');
-    });
+  <section id="abbot" class="soft">
+    <div class="container abbot-grid">
+      <div>
+        <div class="section-head"><span>주지스님</span><h2>수행자의 마음으로 한 분 한 분 정성껏 듣겠습니다</h2></div>
+        <div class="copy">
+          <p>안녕하십니까. 대한불교불국사를 찾아주신 모든 분들께 깊이 감사드립니다.</p>
+          <p>살다 보면 누구나 앞이 보이지 않는 순간을 만납니다. 그럴 때 가장 필요한 것은 미래를 단정하는 말이 아니라, 자신의 마음을 바르게 바라보고 삶의 방향을 찾는 지혜입니다.</p>
+          <p>이곳을 찾는 모든 분들이 마음의 평안과 희망을 얻으시길 기원합니다.</p>
+          <ul class="profile-list">
+            <li>대한불교불국사 주지</li>
+            <li>동국대학교 박사과정 수료</li>
+            <li>오랜 수행과 상담 경험</li>
+            <li>명리학·사주·궁합·개명 상담</li>
+          </ul>
+        </div>
+      </div>
+      <div class="photo"><img src="images/abbot.jpg" alt="대한불교불국사 주지스님"></div>
+    </div>
+  </section>
 
-    mobileNav.addEventListener('click', event => {
-      if (event.target.tagName === 'A') {
-        mobileNav.classList.remove('open');
-        menuToggle.setAttribute('aria-expanded', 'false');
+  <section id="prayer">
+    <div class="container">
+      <div class="section-head"><span>법회·기도 안내</span><h2>부처님 가르침을 생활 속에서 만납니다</h2></div>
+      <div class="cards">
+        <article class="card"><div class="icon">🙏</div><strong>정기 법회</strong><p>초하루·보름 법회와 법문을 통해 신심을 다지고 마음을 밝힙니다.</p></article>
+        <article class="card"><div class="icon">🪷</div><strong>기도 접수</strong><p>가족 건강, 소원 성취, 사업 번창과 평안을 위한 기도를 정성껏 올립니다.</p></article>
+        <article class="card"><div class="icon">🕯️</div><strong>천도·추모</strong><p>선망 부모와 인연 영가의 극락왕생을 발원하며 정성껏 의식을 봉행합니다.</p></article>
+        <article class="card"><div class="icon">📿</div><strong>불교 공부</strong><p>경전과 부처님 말씀을 쉽고 따뜻하게 배우는 신행 모임을 운영합니다.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="consult" class="soft">
+    <div class="container">
+      <div class="section-head"><span>사주·명리 상담</span><h2>운명을 단정하지 않고 삶의 방향을 함께 찾습니다</h2></div>
+      <div class="cards">
+        <article class="card"><div class="icon">福</div><strong>종합 사주</strong><p>타고난 기질과 삶의 흐름, 재물·건강·가정의 방향을 종합적으로 살펴봅니다.</p></article>
+        <article class="card"><div class="icon">緣</div><strong>인연·궁합</strong><p>부부, 연인, 가족과 사업 인연의 조화와 관계의 흐름을 살펴봅니다.</p></article>
+        <article class="card"><div class="icon">業</div><strong>직업·사업</strong><p>진로, 이직, 창업과 사업 확장 등 중요한 선택의 시기와 방향을 안내합니다.</p></article>
+        <article class="card"><div class="icon">安</div><strong>마음 상담</strong><p>답답한 마음과 삶의 고민을 듣고 불교적 지혜로 해결의 실마리를 찾습니다.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery">
+    <div class="container">
+      <div class="section-head"><span>갤러리</span><h2>대한불교불국사를 소개합니다</h2></div>
+      <div class="gallery">
+        <figure><img src="images/temple-front.jpg" alt="사찰 전경"><figcaption>사찰 전경</figcaption></figure>
+        <figure><img src="images/main-hall.jpg" alt="법당 내부"><figcaption>법당 내부</figcaption></figure>
+        <figure><img src="images/consulting-room.jpg" alt="상담실"><figcaption>상담실</figcaption></figure>
+        <figure><img src="images/abbot.jpg" alt="주지스님"><figcaption>주지스님</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="reservation">
+    <div class="container reservation-wrap">
+      <div>
+        <div class="section-head"><span>상담 예약</span><h2>생년월일과 상담 내용을 남겨 주세요</h2></div>
+        <div class="copy">
+          <p>아래 내용을 작성한 뒤 <b>문자로 예약 보내기</b>를 누르면 휴대전화 문자창이 열립니다.</p>
+          <p><b>카카오톡으로 보내기</b>를 누르면 휴대전화 공유창에서 카카오톡을 선택할 수 있습니다.</p>
+          <p>예약 확인 후 상담 가능한 시간을 안내드립니다.</p>
+        </div>
+        <div class="contact-box">
+          <div class="contact-row"><b>상담 예약</b><a href="tel:01056690409">010-5669-0409</a></div>
+          <div class="contact-row"><b>사찰 전화</b><a href="tel:0553336544">055-333-6544</a></div>
+          <div class="contact-row"><b>상담 방법</b><span>방문·전화 상담</span></div>
+        </div>
+      </div>
+      <form class="reservation-form" id="reservationForm">
+        <div class="form-grid">
+          <div class="field"><label for="name">성함 *</label><input id="name" name="name" required placeholder="성함을 입력하세요"></div>
+          <div class="field"><label for="phone">연락처 *</label><input id="phone" name="phone" type="tel" required inputmode="tel" placeholder="010-0000-0000"></div>
+          <div class="field"><label for="birth">생년월일 *</label><input id="birth" name="birth" type="date" required></div>
+          <div class="field"><label for="birthTime">태어난 시간</label><input id="birthTime" name="birthTime" type="time"></div>
+          <div class="field"><label for="calendarType">양력·음력 *</label><select id="calendarType" name="calendarType" required><option value="">선택하세요</option><option>양력</option><option>음력</option><option>잘 모름</option></select></div>
+          <div class="field"><label for="gender">성별 *</label><select id="gender" name="gender" required><option value="">선택하세요</option><option>남성</option><option>여성</option></select></div>
+          <div class="field"><label for="consultType">상담 종류 *</label><select id="consultType" name="consultType" required><option value="">선택하세요</option><option>종합 사주</option><option>인연·궁합</option><option>직업·사업</option><option>개명·이름</option><option>마음 상담</option><option>기도 접수</option><option>기타</option></select></div>
+          <div class="field"><label for="preferred">희망 상담일</label><input id="preferred" name="preferred" type="date"></div>
+          <div class="field full"><label for="message">상담 내용</label><textarea id="message" name="message" placeholder="궁금하신 점이나 상담받고 싶은 내용을 적어 주세요"></textarea></div>
+        </div>
+        <label class="check"><input id="privacy" type="checkbox" required><span>예약 확인을 위해 입력한 개인정보를 상담 연락 목적으로 사용하는 데 동의합니다. *</span></label>
+        <div class="form-actions">
+          <button class="btn primary" type="button" id="smsButton">문자로 예약 보내기</button>
+          <button class="btn secondary" type="button" id="shareButton">카카오톡으로 보내기</button>
+          <a class="btn secondary" href="tel:01056690409">전화 예약</a>
+        </div>
+        <div class="notice" id="formNotice" aria-live="polite"></div>
+      </form>
+    </div>
+  </section>
+
+  <section id="contact" class="soft">
+    <div class="container contact-grid">
+      <div>
+        <div class="section-head"><span>문의·예약</span><h2>편안한 마음으로 연락해 주세요</h2></div>
+        <p class="copy">법회, 기도 접수, 사주·명리 상담은 전화로 예약하실 수 있습니다. 상담 내용은 소중히 보호합니다.</p>
+        <div class="hero-buttons">
+          <a class="btn primary" href="tel:01056690409">휴대전화 상담</a>
+          <a class="btn secondary" href="tel:0553336544">사찰 전화</a>
+        </div>
+      </div>
+      <div class="contact-box">
+        <div class="contact-row"><b>사찰명</b><span>대한불교불국사</span></div>
+        <div class="contact-row"><b>사찰 전화</b><a href="tel:0553336544">055-333-6544</a></div>
+        <div class="contact-row"><b>상담 예약</b><a href="tel:01056690409">010-5669-0409</a></div>
+        <div class="contact-row"><b>지역</b><span>경상남도 김해시</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="container">© 2026 대한불교불국사. 모든 권리 보유.</div></footer>
+<div class="mobile-bar"><a href="#reservation">상담 예약</a><a href="tel:0553336544">사찰 전화</a></div>
+<script>
+(function(){
+  const form=document.getElementById('reservationForm');
+  const notice=document.getElementById('formNotice');
+  function reservationText(){
+    if(!form.reportValidity()) return null;
+    const v=id=>document.getElementById(id).value.trim();
+    const birthTime=v('birthTime') || '모름';
+    const preferred=v('preferred') || '협의';
+    return `[대한불교불국사 상담 예약]\n성함: ${v('name')}\n연락처: ${v('phone')}\n생년월일: ${v('birth')} (${v('calendarType')})\n태어난 시간: ${birthTime}\n성별: ${v('gender')}\n상담 종류: ${v('consultType')}\n희망 상담일: ${preferred}\n상담 내용: ${v('message') || '없음'}`;
+  }
+  document.getElementById('smsButton').addEventListener('click',function(){
+    const text=reservationText(); if(!text) return;
+    notice.textContent='문자창이 열리면 내용을 확인한 뒤 전송해 주세요.';
+    location.href='sms:01056690409?body='+encodeURIComponent(text);
+  });
+  document.getElementById('shareButton').addEventListener('click',async function(){
+    const text=reservationText(); if(!text) return;
+    try{
+      if(navigator.share){
+        await navigator.share({title:'대한불교불국사 상담 예약',text});
+        notice.textContent='공유가 완료되었습니다.';
+      }else if(navigator.clipboard){
+        await navigator.clipboard.writeText(text);
+        notice.textContent='예약 내용이 복사되었습니다. 카카오톡에 붙여넣어 보내 주세요.';
+      }else{
+        notice.textContent='이 기기에서는 공유 기능을 사용할 수 없습니다. 문자 예약을 이용해 주세요.';
       }
-    });
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', event => {
-        const target = anchor.getAttribute('href');
-        if (target.startsWith('#')) {
-          const section = document.querySelector(target);
-          if (section) {
-            event.preventDefault();
-            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-        }
-      });
-    });
-  </script>
+    }catch(e){ if(e.name!=='AbortError') notice.textContent='공유하지 못했습니다. 문자 예약을 이용해 주세요.'; }
+  });
+})();
+</script>
 </body>
 </html>
